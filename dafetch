@@ -1,3 +1,29 @@
 #!/usr/bin/bash
 
-echo "dafetch!!!"
+# version
+
+version=1.0.0
+
+# colors
+
+readonly RED=$(tput setaf 1)
+readonly GREEN=$(tput setaf 2)
+readonly YELLOW=$(tput setaf 3)
+readonly BLUE=$(tput setaf 4)
+readonly PURPLE=$(tput setaf 25)
+readonly CYAN=$(tput setaf 6)
+readonly WHITE=$(tput setaf 7)
+readonly RESET=$(tput sgr0)
+
+# os info
+
+os=$(sed -nE "s@PRETTY_NAME=\"([^\"]*)\"@\1@p" /etc/os-release)
+kernel=$(uname -s -r)
+deWmDm="$(echo $XDG_CURRENT_DESKTOP) ($(echo $XDG_SESSION_TYPE))"
+
+# hardware info
+
+RAM=$(free | grep Mem | awk '{printf "%.1f MiB / %.1f MiB", $3/1024, $2/1024}')
+CPU=$(lscpu | grep "Model name" | sed 's/Model name:\s*//')
+GPU=$(lspci | grep "VGA compatible controller" | sed 's/.*: //')
+
